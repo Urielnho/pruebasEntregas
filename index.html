@@ -3,143 +3,227 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Delivery — Prototipo</title>
+    <title>Delivery - Prototipo</title>
     <link rel="stylesheet" href="./styles.css" />
-    <!-- INSERTAR SCRIPT DE CLARITY AQUÍ -->
-     <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "w13mfxr15c");
-</script>
+    <script type="text/javascript">
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, "clarity", "script", "w13mfxr15c");
+    </script>
   </head>
   <body>
-    <header class="header">
-      <div class="header-top">
-        <img
-          src="./assets/logo-delivery.svg"
-          width="44"
-          height="44"
-          alt=""
-          class="header-logo"
-        />
-        <h1>ComidaRápida</h1>
-      </div>
-      <!-- Flujo confuso: “Restaurantes” y “Categorías” parecen lo mismo pero son pasos distintos -->
-      <div class="steps" aria-label="Pasos">
-        <span class="step active" data-step-indicator="1">
+    <header class="hero">
+      <nav class="topbar" aria-label="Principal">
+        <div class="brand">
           <img
-            src="./assets/ico-ubicacion.svg"
-            width="14"
-            height="14"
+            src="./assets/logo-delivery.svg"
+            width="44"
+            height="44"
             alt=""
-            class="step-ico"
+            class="brand-logo"
           />
-          1. Local
-        </span>
-        <span class="step" data-step-indicator="2">
-          <img
-            src="./assets/ico-menu.svg"
-            width="14"
-            height="14"
-            alt=""
-            class="step-ico"
-          />
-          2. Menú
-        </span>
-        <span class="step subtle-step" data-step-indicator="3">
-          <img
-            src="./assets/ico-lista.svg"
-            width="14"
-            height="14"
-            alt=""
-            class="step-ico"
-          />
-          Resumen
-        </span>
+          <div>
+            <p class="eyebrow">Seleccion gourmet a domicilio</p>
+            <h1>Atelier Route</h1>
+          </div>
+        </div>
+        <button type="button" class="cart-shortcut" id="btn-ir-carrito">
+          Carrito
+          <span class="cart-badge" id="cart-badge">0</span>
+        </button>
+      </nav>
+
+      <section class="hero-copy">
+        <div>
+          <p class="eyebrow">Experiencia premium de delivery</p>
+          <h2>Descubre menus curados, arma tu pedido y confirma en una experiencia mas sofisticada.</h2>
+          <p class="hero-text">
+            El flujo conserva lo esencial, pero con una presentacion mas elegante,
+            mejor balance visual y una sensacion de compra mas exclusiva.
+          </p>
+        </div>
+        <div class="hero-card">
+          <p class="hero-card__label">Reserva actual</p>
+          <strong id="hero-restaurante">Selecciona un restaurante</strong>
+          <p id="hero-resumen">Explora el menu y agrega productos al carrito.</p>
+        </div>
+      </section>
+
+      <div class="steps" aria-label="Pasos del pedido">
+        <span class="step active" data-step-indicator="1">1. Explorar menú</span>
+        <span class="step" data-step-indicator="2">2. Revisar carrito</span>
+        <span class="step" data-step-indicator="3">3. Datos de entrega</span>
+        <span class="step" data-step-indicator="4">4. Confirmación</span>
       </div>
     </header>
 
-    <main class="main">
-      <!-- Paso 1: elegir restaurante (y filtro por categoría poco claro) -->
-      <section id="step-restaurante" class="panel active">
-        <h2>¿Dónde pedir?</h2>
-        <p class="muted">
-          Primero el local. La categoría filtra pero no avanza de paso.
-        </p>
-        <div class="filtros">
-          <label class="sr-only" for="filtro-cat">Categoría</label>
-          <select id="filtro-cat" aria-label="Filtrar por tipo de comida">
-            <option value="todas">Todas</option>
-            <option value="pizza">Pizza</option>
-            <option value="asiatica">Asiática</option>
-            <option value="hamburguesas">Hamburguesas</option>
-          </select>
+    <main class="layout">
+      <section id="step-menu" class="panel active">
+        <div class="panel-head">
+          <div>
+            <p class="section-kicker">Paso 1</p>
+            <h2>Ver menu y seleccionar productos</h2>
+            <p class="muted">
+              Explora propuestas destacadas, cambia de restaurante y filtra por estilo de cocina.
+            </p>
+          </div>
+          <div class="filtros">
+            <label class="sr-only" for="filtro-cat">Categoría</label>
+            <select id="filtro-cat" aria-label="Filtrar por tipo de comida">
+              <option value="todas">Todas las categorías</option>
+              <option value="pizza">Pizza</option>
+              <option value="asiatica">Asiática</option>
+              <option value="hamburguesas">Hamburguesas</option>
+            </select>
+          </div>
         </div>
-        <ul id="lista-restaurantes" class="lista-cards"></ul>
+
+        <ul id="lista-restaurantes" class="restaurant-grid"></ul>
+
+        <section class="menu-shell" aria-labelledby="titulo-restaurante">
+          <div class="menu-header">
+            <div>
+              <p class="section-kicker">Menu activo</p>
+              <h3 id="titulo-restaurante">Selecciona un restaurante</h3>
+            </div>
+            <p id="descripcion-restaurante" class="muted">
+              Al elegir un local apareceran sus productos disponibles.
+            </p>
+          </div>
+          <ul id="lista-platos" class="product-grid"></ul>
+          <p id="menu-vacio" class="muted empty-state">
+            Elige un restaurante para comenzar tu pedido.
+          </p>
+        </section>
       </section>
 
-      <!-- Paso 2: productos del restaurante elegido -->
-      <section id="step-productos" class="panel" hidden>
-        <button type="button" class="link-back confusing" id="btn-volver-rest">
-          &larr; Cambiar sitio
-        </button>
-        <h2 id="titulo-restaurante">Menú</h2>
-        <ul id="lista-platos" class="lista-platos"></ul>
-        <div class="sticky-cta">
-          <!-- Botón resumen poco visible -->
-          <button type="button" id="btn-carrito" class="btn btn-faint">
-            Ver resumen del pedido
+      <section id="step-checkout" class="panel panel-checkout" hidden>
+        <div class="panel-head panel-head--checkout">
+          <div>
+            <p class="section-kicker">Paso 3</p>
+            <h2>Datos de entrega y pago</h2>
+            <p class="muted">
+              Revisa tu seleccion y completa la informacion final para enviar una orden impecable.
+            </p>
+          </div>
+          <button type="button" class="btn btn-secondary" id="btn-volver-menu">
+            Volver al menú
           </button>
+        </div>
+
+        <div class="checkout-grid">
+          <section class="checkout-card">
+            <h3>Resumen de la orden</h3>
+            <ul id="lista-resumen" class="lista-resumen"></ul>
+            <p id="resumen-vacio" class="muted">Tu carrito está vacío.</p>
+            <div class="summary-lines">
+              <p>
+                Subtotal
+                <strong id="subtotal-delivery">0,00 €</strong>
+              </p>
+              <p>
+                Envío
+                <strong id="envio-delivery">2,50 €</strong>
+              </p>
+              <p class="total-line">
+                Total
+                <strong id="total-delivery">0,00 €</strong>
+              </p>
+            </div>
+          </section>
+
+          <section class="checkout-card">
+            <h3>Formulario final</h3>
+            <form id="checkout-form" class="checkout-form">
+              <label>
+                Nombre completo
+                <input type="text" id="input-nombre" name="nombre" placeholder="Ej. Ana Ruiz" required />
+              </label>
+              <label>
+                Dirección de entrega
+                <input type="text" id="input-direccion" name="direccion" placeholder="Calle, número y referencia" required />
+              </label>
+              <label>
+                Teléfono
+                <input type="tel" id="input-telefono" name="telefono" placeholder="10 dígitos" required />
+              </label>
+              <label>
+                Método de pago
+                <select id="input-pago" name="pago" required>
+                  <option value="">Selecciona una opción</option>
+                  <option value="tarjeta">Tarjeta</option>
+                  <option value="efectivo">Efectivo</option>
+                  <option value="transferencia">Transferencia</option>
+                </select>
+              </label>
+              <label>
+                Indicaciones adicionales
+                <textarea id="input-notas" name="notas" rows="4" placeholder="Ej. tocar el timbre, sin cebolla"></textarea>
+              </label>
+              <div class="actions actions-start">
+                <button type="submit" id="btn-comprar" class="btn btn-primary">
+                  Realizar pedido
+                </button>
+              </div>
+            </form>
+          </section>
         </div>
       </section>
 
-      <!-- Paso 3: resumen -->
-      <section id="step-resumen" class="panel" hidden>
-        <h2>Tu pedido</h2>
-        <p class="muted">
-          Revise antes de confirmar. Para añadir más, debe volver atrás sin
-          etiqueta clara.
-        </p>
-        <ul id="lista-resumen" class="lista-resumen"></ul>
-        <p id="resumen-vacio" class="muted">Nada seleccionado.</p>
-        <p class="total-line">
-          Total estimado: <strong id="total-delivery">0,00 €</strong>
-        </p>
-        <div class="actions">
-          <button
-            type="button"
-            class="btn btn-ghost-small"
-            id="btn-seguir-comprando"
-          >
-            Seguir en menú
-          </button>
-          <button type="button" id="btn-comprar" class="btn btn-primary">
-            <img
-              src="./assets/ico-pedido.svg"
-              width="18"
-              height="18"
-              alt=""
-              class="btn-ico-inline"
-            />
-            Confirmar pedido
+      <aside class="cart-panel" id="cart-panel" aria-labelledby="cart-title">
+        <div class="cart-panel__head">
+          <div>
+            <p class="section-kicker">Paso 2</p>
+            <h2 id="cart-title">Agregar al carrito y revisar pedido</h2>
+          </div>
+          <button type="button" class="btn btn-ghost" id="btn-vaciar">
+            Vaciar
           </button>
         </div>
-      </section>
+        <p class="muted cart-panel__copy">
+          Tu orden se actualiza al instante. Desde aqui pasas al formulario final.
+        </p>
+        <ul id="lista-carrito" class="lista-carrito"></ul>
+        <p id="carrito-vacio" class="muted">Todavía no agregas productos.</p>
+        <div class="cart-total">
+          <span>Total actual</span>
+          <strong id="cart-total">0,00 €</strong>
+        </div>
+        <div class="actions actions-stack">
+          <button type="button" class="btn btn-secondary" id="btn-seguir-comprando">
+            Seguir explorando
+          </button>
+          <button type="button" class="btn btn-primary" id="btn-ir-checkout">
+            Continuar con el pedido
+          </button>
+        </div>
+      </aside>
 
-      <!-- Confirmación -->
-      <section id="step-confirmacion" class="panel panel-center" hidden>
-        <h2>Pedido enviado</h2>
-        <p id="msg-confirm">En breve recibirá el tiempo estimado.</p>
+      <section id="step-confirmacion" class="panel panel-center confirmation-panel" hidden>
+        <p class="section-kicker">Paso 4</p>
+        <h2>Pedido enviado correctamente</h2>
+        <p id="msg-confirm">En breve recibirás la confirmación del local.</p>
+        <div class="confirmation-meta">
+          <p id="confirm-restaurante"></p>
+          <p id="confirm-total"></p>
+        </div>
         <button type="button" class="btn btn-primary" id="btn-nuevo">
-          Nuevo pedido
+          Crear un nuevo pedido
         </button>
       </section>
     </main>
 
     <footer class="footer">
-      <small>Prototipo delivery — tiempos simulados</small>
+      <small>Prototipo premium de delivery - flujo: menu, seleccion, carrito, revision y compra.</small>
     </footer>
 
     <script src="./script.js"></script>
