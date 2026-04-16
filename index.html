@@ -87,7 +87,7 @@
           </div>
         </div>
 
-        <ul id="lista-restaurantes" class="restaurant-grid"></ul>
+        <ul id="lista-restaurantes" class="restaurant-grid sucursal-destacada"></ul>
 
         <section class="menu-shell" aria-labelledby="titulo-restaurante">
           <div class="menu-header">
@@ -147,14 +147,17 @@
               <label>
                 Nombre completo
                 <input type="text" id="input-nombre" name="nombre" placeholder="Ej. Ana Ruiz" required />
+                <span class="input-error" id="error-nombre"></span>
               </label>
               <label>
                 Dirección de entrega
                 <input type="text" id="input-direccion" name="direccion" placeholder="Calle, número y referencia" required />
+                <span class="input-error" id="error-direccion"></span>
               </label>
               <label>
                 Teléfono
                 <input type="tel" id="input-telefono" name="telefono" placeholder="10 dígitos" required />
+                <span class="input-error" id="error-telefono"></span>
               </label>
               <label>
                 Método de pago
@@ -164,6 +167,7 @@
                   <option value="efectivo">Efectivo</option>
                   <option value="transferencia">Transferencia</option>
                 </select>
+                <span class="input-error" id="error-pago"></span>
               </label>
               <label>
                 Indicaciones adicionales

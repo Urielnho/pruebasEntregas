@@ -1,3 +1,45 @@
+.sucursal-destacada {
+  border: 2.5px solid #b4864b;
+  border-radius: 18px;
+  box-shadow: 0 0 0 3px rgba(180,134,75,0.08);
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+.sucursal-destacada:before {
+  content: '\1F4CD  Sucursales';
+  position: absolute;
+  top: -1.7em;
+  left: 0.5em;
+  font-size: 1.1em;
+  color: #b4864b;
+  font-weight: bold;
+  background: #fff9f0;
+  padding: 0.2em 0.8em;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(180,134,75,0.08);
+}
+
+.cart-badge {
+  transition: transform 0.18s cubic-bezier(.4,2,.6,1), background 0.18s;
+}
+.cart-badge.animated {
+  background: linear-gradient(135deg, #ffe7b2 0%, #f7b84b 100%);
+  transform: scale(1.18) rotate(-8deg);
+  box-shadow: 0 0 0 4px #ffe7b2;
+}
+
+.input-error {
+  color: #c0392b;
+  font-size: 0.92em;
+  margin-top: 0.2em;
+  display: block;
+  min-height: 1.1em;
+}
+
+input.invalid, select.invalid, textarea.invalid {
+  border-color: #c0392b !important;
+  background: #fff0ee !important;
+}
 *,
 *::before,
 *::after {

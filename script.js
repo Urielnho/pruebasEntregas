@@ -310,6 +310,13 @@
     }
   }
 
+  function animarBadgeCarrito() {
+    elCartBadge.classList.add('animated');
+    setTimeout(function () {
+      elCartBadge.classList.remove('animated');
+    }, 500);
+  }
+
   function renderCarrito() {
     elListaCarrito.innerHTML = '';
     elListaResumen.innerHTML = '';
@@ -419,7 +426,48 @@
     }
 
     renderCarrito();
+    animarBadgeCarrito();
     actualizarIndicadores(2);
+    // --- Validación visual checkout ---
+    function validarCampo(input, errorId, mensaje, validador) {
+      var valor = input.value.trim();
+      var error = document.getElementById(errorId);
+      if (!validador(valor)) {
+        input.classList.add('invalid');
+        error.textContent = mensaje;
+        return false;
+      } else {
+        input.classList.remove('invalid');
+        error.textContent = '';
+        return true;
+      }
+    }
+
+    function setupValidacionCheckout() {
+      var nombre = document.getElementById('input-nombre');
+      var direccion = document.getElementById('input-direccion');
+      var telefono = document.getElementById('input-telefono');
+      var pago = document.getElementById('input-pago');
+
+      nombre.addEventListener('input', function () {
+        validarCampo(nombre, 'error-nombre', 'Ingresa tu nombre completo.', v => v.length > 2);
+      });
+      direccion.addEventListener('input', function () {
+        validarCampo(direccion, 'error-direccion', 'Ingresa una dirección válida.', v => v.length > 5);
+      });
+      telefono.addEventListener('input', function () {
+        validarCampo(telefono, 'error-telefono', 'Ingresa un teléfono válido (10 dígitos).', v => /^\d{10}$/.test(v));
+      });
+      pago.addEventListener('change', function () {
+        validarCampo(pago, 'error-pago', 'Selecciona un método de pago.', v => v !== '');
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      setupValidacionCheckout();
+    });
+
+    // --- Fin validación visual checkout ---
   }
 
   function cambiarCantidad(idPlato, accion) {
